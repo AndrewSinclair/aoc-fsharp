@@ -24,17 +24,13 @@ module Day4 =
     let challenge = String.replicate n "0"
     hash.StartsWith(challenge)
 
-  let inverse fn =
-    fun x -> not (fn x)
-
   let doMine difficulty =
     ints
     |> Seq.map makeHash
-    |> Seq.takeWhile (inverse (succeedAtDifficulty difficulty))
+    |> Seq.takeWhile ((succeedAtDifficulty difficulty) >> not)
     |> Seq.length
 
   let part1 = doMine 5
-
   let part2 = doMine 6
 
   printf "Part 1: %d\n" part1
